@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">保育園点数計算</h1>
+        
+        <!-- 父の状況 -->
+        <div class="mt-4">
+            <fieldset>
+                <legend>父の状況</legend>
+                <select class="form-select" id="f-funda">
+                    <option data-value="10" data-for="F">月140時間以上働いている</option>
+                    <option data-value="9" data-for="F">月112時間以上働いている</option>
+                    <option data-value="8" data-for="F">月64時間以上働いている</option>
+                    <option data-value="7" data-for="F">上記以外の状況で働いている</option>
+                    <option data-value="6" data-for="J">月140時間以上の仕事に内定している</option>
+                    <option data-value="5" data-for="J">月64時間以上働いている</option>
+                    <option data-value="4" data-for="J">上記以外の状況で内定している</option>
+                    <option data-value="3" data-for="K">求職活動のため、日中外出している</option>
+                    <option data-value="10" data-for="I">学校に月140時間以上通っている（職業訓練校含む）</option>
+                    <option data-value="9" data-for="I">学校に月112時間以上通っている（職業訓練校含む）</option>
+                    <option data-value="8" data-for="I">学校に月64時間以上通っている（職業訓練校含む）</option>
+                    <option data-value="7" data-for="I">上記以外の状況で学校に通っている（職業訓練校含む）</option>
+                    <option data-value="12" data-for="D">疾病・負傷により保育が完全に不可能である</option>
+                    <option data-value="10" data-for="D">疾病・負傷により日中の保育が困難である</option>
+                    <option data-value="8" data-for="D">疾病・負傷により保育が部分的に困難である</option>
+                    <option data-value="10" data-for="D">身体障がい者手帳１級・２級、精神障碍者保健福祉手帳１～３級、または療育手帳の交付を受けていて常時保育が困難である</option>
+                    <option data-value="8" data-for="D">身体障碍者手帳3級の交付を受けていて常時保育が困難である</option>
+                    <option data-value="7" data-for="D">4級以下</option>
+                    <option data-value="10" data-for="G">親族の介護看護に月140時間以上要している</option>
+                    <option data-value="9" data-for="G">親族の介護看護に月112時間以上要している/option>
+                    <option data-value="8" data-for="G">親族の介護看護に月64時間以上要している</option>
+                    <option data-value="7" data-for="G">上記以外の状況で親族を介護・看護している</option>
+                    <option data-value="12" data-for="A">災害復旧で避難している</option>
+                    <option data-value="11" data-for="C">ひとり親家庭である</option>
+                    <option data-value="20" data-for="B">児童相談所より保育入所を勧められている</option>
+                    <option data-value="100" data-for="K">離婚または死別により父はいない</option>
+                </select>
+            </fieldset>
+        </div>
+
+        <!-- 母の状況 -->
+        <div class="mt-4">
+            <fieldset>
+                <legend>母の状況</legend>
+                <select class="form-select" id="mwork">
+                    <option data-value="10" data-for="F">月140時間以上働いている</option>
+                    <option data-value="9" data-for="F">月112時間以上働いている</option>
+                    <option data-value="8" data-for="F">月64時間以上働いている</option>
+                    <option data-value="7" data-for="F">上記以外の状況で働いている</option>
+                    <option data-value="6" data-for="J">月140時間以上の仕事に内定している</option>
+                    <option data-value="5" data-for="J">月64時間以上働いている</option>
+                    <option data-value="4" data-for="J">上記以外の状況で内定している</option>
+                    <option data-value="3" data-for="K">求職活動のため、日中外出している</option>
+                    <option data-value="10" data-for="I">学校に月140時間以上通っている（職業訓練校含む）</option>
+                    <option data-value="9" data-for="I">学校に月112時間以上通っている（職業訓練校含む）</option>
+                    <option data-value="8" data-for="I">学校に月64時間以上通っている（職業訓練校含む）</option>
+                    <option data-value="7" data-for="I">上記以外の状況で学校に通っている（職業訓練校含む）</option>
+                    <option data-value="12" data-for="D">疾病・負傷により保育が完全に不可能である</option>
+                    <option data-value="10" data-for="D">疾病・負傷により日中の保育が困難である</option>
+                    <option data-value="8" data-for="D">疾病・負傷により保育が部分的に困難である</option>
+                    <option data-value="10" data-for="D">身体障がい者手帳１級・２級、精神障碍者保健福祉手帳１～３級、または療育手帳の交付を受けていて常時保育が困難である</option>
+                    <option data-value="8" data-for="D">身体障碍者手帳3級の交付を受けていて常時保育が困難である</option>
+                    <option data-value="7" data-for="D">4級以下</option>
+                    <option data-value="10" data-for="G">親族の介護看護に月140時間以上要している</option>
+                    <option data-value="9" data-for="G">親族の介護看護に月112時間以上要している/option>
+                    <option data-value="8" data-for="G">親族の介護看護に月64時間以上要している</option>
+                    <option data-value="7" data-for="G">上記以外の状況で親族を介護・看護している</option>
+                    <option data-value="12" data-for="A">災害復旧で避難している</option>
+                    <option data-value="11" data-for="C">ひとり親家庭である</option>
+                    <option data-value="20" data-for="B">児童相談所より保育入所を勧められている</option>
+                    <option data-value="100" data-for="K">離婚または死別により父はいない</option>
+                </select>
+            </fieldset>
+        </div>
+
+        <!-- 基礎点数加算・減産項目 -->
+        <div class="mt-4">
+            <fieldset>
+                <legend>基礎点数加算・減産項目</legend>
+                <div class="form-check">
+                    <input id="seiho" name="plusscore" class="form-check-input" type="checkbox"  value="1" ><label class="form-check-label" for="timing">生活保護を受給している</label>
+                    <input id="brother" name="plusscore" class="form-check-input" type="checkbox" value="2" ><label class="form-check-label" for="timing">きょうだいが在園している施設を希望</label>
+                    <input id="brotheramount" name="plusscore" class="form-check-input" type="checkbox" value="2" ><label class="form-check-label" for="timing">保育園に３人以上預けることになる</label>
+                    <input id="again" name="plusscore" class="form-check-input" type="checkbox" value="2" ><label class="form-check-label" for="timing">産休・育休により一度退園した児童である</label>
+                    <input id="money" name="plusscore" class="form-check-input" type="checkbox" value="-20" ><label class="form-check-label" for="timing">保育料の滞納がある</label>
+                    <input id="hoikusi" name="plusscore" class="form-check-input" type="checkbox" value="6" ><label class="form-check-label" for="timing">藤沢市内で保育士として働いている又は内定している</label>
+                    <input id="hoikuhojo" name="plusscore" class="form-check-input" type="checkbox" value="2" ><label class="form-check-label" for="timing">藤沢市で保育補助者として働く</label>
+                    <input id="foreigner" name="plusscore" class="form-check-input" type="checkbox" value="-10" ><label class="form-check-label" for="timing">藤沢市民ではない</label>
+                    <input id="foreigner" name="plusscore" class="form-check-input" type="checkbox" value="-2" ><label class="form-check-label" for="timing">過去に内定を辞退した</label>
+                    <input id="local" name="plusscore" class="form-check-input" type="checkbox" value="5" ><label class="form-check-label" for="timing">地域型保育事業の卒園者</label>
+                </div>
+            </fieldset>
+        </div>
+
+        <!-- 調整項目 -->
+        <div class="mt-4">
+            <fieldset>
+                <legend>調整項目</legend>
+                <div class="form-check">
+                    <input id="timing" class="form-check-input" name="cordinatescore" type="checkbox" value="2" ><label class="form-check-label" for="brother">二人以上の兄弟が同時に申し込む</label>
+                    <input id="double" class="form-check-input" name="cordinatescore" type="checkbox" value="2" ><label class="form-check-label" for="brother">多胎児（双子など）が同時に申し込む</label>
+                    <input id="other" class="form-check-input"name="cordinatescore" type="checkbox" value="3" ><label class="form-check-label" for="brother">現在認可外、企業主導型、月極ベビーシッターに預けている</label>
+                    <input id="again" class="form-check-input" name="cordinatescore" type="checkbox" value="2" ><label class="form-check-label" for="brother">その他の施設に有料で預けている</label>
+                    <input id="hikazei" class="form-check-input" name="cordinatescore" type="checkbox" value="1" ><label class="form-check-label" for="brother">父母ともに住民税非課税である</label>
+                    <input id="18ijo" class="form-check-input" name="cordinatescore" type="checkbox" value="1" ><label class="form-check-label" for="brother">18歳以上の兄弟が本人含めて3人以上いる</label>
+                    <input id="kaigo" class="form-check-input" name="cordinatescore" type="checkbox" value="2" ><label class="form-check-label" for="brother">家族に障がい者・要介護者がいる</label>
+                    <input id="hunin" class="form-check-input" name="cordinatescore" type="checkbox" value="2" ><label class="form-check-label" for="brother">父母のどちらかが長期入院や単身赴任で家にいない</label>
+                    <input id="hukki" class="form-check-input" name="cordinatescore" type="checkbox" value="2" ><label class="form-check-label" for="brother">入所により育休・産休から復帰する</label>
+                    <input id="alone" class="form-check-input" name="cordinatescore" type="checkbox" value="3" ><label class="form-check-label" for="brother">ひとり親世帯で65歳未満の同居者がいない</label>
+                </div>
+            </fieldset>
+        </div>
+
+        <!-- 結果ボタン -->
+        <div class="mt-4">
+            <button class="btn btn-primary" onclick="resultView()">結果を見る</button>
+        </div>
+
+        <!-- 結果表示 -->
+        <div id="result" class="mt-4">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>基礎点</th>
+                        <th>優先順位</th>
+                        <th>調整項目</th>
+                        <th>結果</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>父</td>
+                        <td id="fatherFundaScore"></td>
+                        <td id="fatherPriority"></td>
+                        <td rowspan="2" id="cordinatePoint"></td>
+                        <td rowspan="2" id="resultCell"></td>
+                    </tr>
+                    <tr>
+                        <td>母</td>
+                        <td id="motherFundaScore"></td>
+                        <td id="motherPriority"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    <script src="hoiku.js"></script>
+</body>
+</html>
