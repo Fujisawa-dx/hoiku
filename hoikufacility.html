@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>保育園空き状況マップ</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+    <style>
+        #map {
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+
+    <form>
+        <label for="age">子どもの年齢:</label>
+        <input type="radio" name="age" value="0" checked> 0歳
+        <input type="radio" name="age" value="1"> 1歳
+        <input type="radio" name="age" value="2"> 2歳
+        <input type="radio" name="age" value="3"> 3歳
+        <input type="radio" name="age" value="4"> 4歳
+        <input type="radio" name="age" value="5"> 5歳
+    </form>
+
+    <form>
+        <label for="facility-type">施設種別:</label>
+        <select id="facility-type" name="facility-type">
+            <option value="all" selected>すべて</option>
+            <option value="市立保育園">市立保育園</option>
+            <option value="法人立保育園">法人立保育園</option>
+            <option value="小規模保育施設">小規模保育施設</option>
+            <option value="家庭的保育施設">家庭的保育施設</option>
+            <option value="認定こども園">認定こども園</option>
+        </select>
+    </form>
+
+    <script>
+        var map = L.map('map').setView([35.3359, 139.4892], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: 'Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+            maxZoom: 18
+        }).addTo(map);
+
+        var facilityData = [];
+
+        // CSVファイルを読み込む
+        fetch('facility_data.csv')
+            .then(function (response) {
+                return response.text();
+            })
+            .then(function (text) {
+                var rows = text.split('\n');
+
+                for (var i = 1; i < rows.length; i++) {
+                    var columns = rows[i].split(',');
+
+                    var facility = {
+                        name: columns[0],
+                        type: columns[1],
+                        age0: columns[2],
+                        age1: columns[3],
+                        age2: columns[4],
+                        age3: columns[5],
+                        age4: columns[6],
+                        age5: columns[7],
+                        lat: parseFloat(columns[8]),
+                        lng: parseFloat(columns[9])
+                    };
+
+                    facilityData.push(facility);
+                }
+
+                // マーカーを作成する関数
+                function createMarker(facility) {
+                    var markerColor = 'red';
+
+                    if (facility['age' + document.querySelector('input[name="age"]:checked').value] === '〇') {
+                        markerColor = 'blue';
+                    }
+
+                    var markerIcon = L.icon({
+                        iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-' + markerColor + '.png',
+                        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+                        iconSize: [25, 41],
+                        iconAnchor: [12, 41],
+                        popupAnchor: [1, -34],
+                        shadowSize: [41, 41]
+                    });
+
+                    var marker = L.marker([facility.lat, facility.lng], { icon: markerIcon });
+                    marker.bindPopup(createPopupContent(facility));
+
+                    return marker
+                }
+
+                function createPopupContent(facility){
+                    var content = "<b>" + facility.name + "<br>";
+                    content += "施設種別：" + facility.type + "<br>";
+                    content += "0歳児：" + facility.age0 + "<br>";
+                    content += "1歳児：" + facility.age1 + "<br>";
+                    content += "2歳児：" + facility.age2 + "<br>";
+                    content += "3歳児：" + facility.age3 + "<br>";
+                    content += "4歳児：" + facility.age4 + "<br>";
+                    content += "5歳児：" + facility.age5 + "</b>";
+
+                    return content    
+                }
+
+                var markers = L.layerGroup();
+
+                facilityData.forEach(function (facility) {
+                    markers.addLayer(createMarker(facility));
+                });
+
+                map.addLayer(markers);
+
+                // 子どもの年齢が変更された時のイベントリスナー
+                var ageRadios = document.querySelectorAll('input[name="age"]');
+                ageRadios.forEach(function (radio) {
+                    radio.addEventListener('change', function () {
+                        markers.clearLayers();
+
+                        facilityData.forEach(function (facility) {
+                            markers.addLayer(createMarker(facility));
+                        });
+
+                        map.addLayer(markers);
+                    });
+                });
+
+                // 施設種別が変更された時のイベントリスナー
+                var facilityTypeSelect = document.getElementById('facility-type');
+                facilityTypeSelect.addEventListener('change', function () {
+                    markers.clearLayers();
+
+                    var selectedType = facilityTypeSelect.value;
+
+                    if (selectedType === 'all') {
+                        facilityData.forEach(function (facility) {
+                            markers.addLayer(createMarker(facility));
+                        });
+                    } else {
+                        var filteredData = facilityData.filter(function (facility) {
+                            return facility.type === selectedType;
+                        });
+
+                        filteredData.forEach(function (facility) {
+                            markers.addLayer(createMarker(facility));
+                        });
+                    }
+
+                    map.addLayer(markers);
+                });
+            });
+    </script>
+</body>
+</html>
