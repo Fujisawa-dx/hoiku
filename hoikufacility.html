@@ -26,24 +26,24 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#about"><i class="fa fa-info-circle mr-1"></i>保育園の入園について</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#availability"><i class="fa fa-calendar mr-1"></i>空き状況について</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#scoring"><i class="fa fa-calculator mr-1"></i>点数計算</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#consultation"><i class="fa fa-comments mr-1"></i>入園相談</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#tour"><i class="fa fa-eye mr-1"></i>保育園見学</a>
-            </li>
-          </ul>
-        </div>
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="info.html"><i class="fa fa-info-circle mr-1"></i>保育園の入園について</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="hoikufacility.html"><i class="fa fa-calendar mr-1"></i>空き状況について</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="hoikuPoint.html"><i class="fa fa-calculator mr-1"></i>点数計算</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="reserve.html"><i class="fa fa-comments mr-1"></i>入園相談</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="tour.html"><i class="fa fa-eye mr-1"></i>保育園見学</a>
+              </li>
+            </ul>
+          </div>
       </nav>
     <div id="map"></div>
 
@@ -81,6 +81,8 @@
         }).addTo(map);
 
         var facilityData = [];
+
+        alert("更新日時点の状況となります。毎月◯日ごろに更新されます。")
 
         // CSVファイルを読み込む
         fetch('facility_data.csv')
